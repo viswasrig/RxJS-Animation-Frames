@@ -2,6 +2,9 @@
   "name": "etdg97--run",
   "version": "0.0.0",
   "private": true,
+  "Scripts": {
+    "start": "tsc index_1.ts | node index_1.js"
+  },
   "dependencies": {
     "rxjs": "7.5.5"
   }

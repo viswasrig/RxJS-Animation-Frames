@@ -1,4 +1,10 @@
-import { animationFrames, map, takeWhile, endWith } from 'rxjs';
+import {
+  animationFrames,
+  map,
+  takeWhile,
+  endWith,
+  TimestampProvider,
+} from 'rxjs';
 
 function tween(start: number, end: number, duration: number) {
   const diff = end - start;
@@ -26,3 +32,16 @@ div.style.transform = 'translate3d(10px, 0, 0)';
 tween(10, 300, 8000).subscribe((x) => {
   div.style.transform = `translate3d(${x}px, 0, 0)`;
 });
+
+// A custom timestamp provider
+let now = 0;
+const customTSProvider: TimestampProvider = {
+  now() {
+    return now++;
+  },
+};
+
+const source$ = animationFrames(customTSProvider);
+
+// Log increasing numbers 0...1...2... on every animation frame.
+source$.subscribe(({ elapsed }) => console.log(elapsed));
